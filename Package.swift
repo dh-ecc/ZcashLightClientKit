@@ -12,6 +12,7 @@ let package = Package(
             name: "ZcashLightClientKit",
             targets: ["ZcashLightClientKit"]
         ),
+        .executable(name: "update-checkpoints", targets: ["update-checkpoints"])
     ],
     dependencies: [
         .package(url: "https://github.com/grpc/grpc-swift.git", from: "1.0.0"),
@@ -32,6 +33,12 @@ let package = Package(
             ],
             resources: [
                 .copy("Resources/saplingtree-checkpoints")
+            ]
+        ),
+        .executableTarget(
+            name: "update-checkpoints",
+            dependencies: [
+                .product(name: "GRPC", package: "grpc-swift")
             ]
         ),
         .target(
