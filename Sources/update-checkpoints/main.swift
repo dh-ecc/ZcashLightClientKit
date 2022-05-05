@@ -14,8 +14,13 @@ let configuration = ClientConnection.Configuration(
 let channel = ClientConnection(configuration: configuration)
 
 do {
-  let latestHeight = try LightWalletClient(channel: channel).getLatestBlock(ChainSpec()).response.wait().height
-  let response = try LightWalletClient(channel: channel).getTreeState(BlockID(jsonString: "{\"height\": \(height) }")).response.wait()
+  let latestBlockHeight = try LightWalletClient(channel: channel).getLatestBlock(ChainSpec()).response.wait().height
+  let latestCheckpointSaved = WalletBirthday.birthday(with: 1640003, network: ZcashNetworkBuilder.network(for: .mainnet)).height
+
+  let thing = Array(stride(from: 1640000, through: Int(latestBlockHeight), by: 10000))
+  print(thing)
+
+  let response = try LightWalletClient(channel: channel).getTreeState(BlockID(jsonString: "{\"height\": \(latestBlockHeight) }")).response.wait()
   let string = response.serializedString()
   print(string)
 }
