@@ -16,6 +16,16 @@ public extension WalletBirthday {
       return birthday(with: height, checkpointDirectory: Self.testnetCheckpointDirectory) ?? .testnetMin
     }
   }
+
+  static var baseResourceURL: URL {
+#if os(iOS)
+    return Bundle.module.bundleURL
+#elseif os(macOS)
+    return Bundle.module.bundleURL.appendingPathComponent("Contents/Resources/")
+#else
+    return Bundle.module.bundleURL
+#endif
+  }
 }
 
 extension WalletBirthday {
