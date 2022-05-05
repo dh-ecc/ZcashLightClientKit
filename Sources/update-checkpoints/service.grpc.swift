@@ -43,5 +43,15 @@ struct LightWalletClient: GRPCClient {
             callOptions: callOptions ?? self.defaultCallOptions
         )
     }
-}
 
+  func getLatestBlock(
+    _ request: ChainSpec,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<ChainSpec, BlockID> {
+    return self.makeUnaryCall(
+      path: "/cash.z.wallet.sdk.rpc.CompactTxStreamer/GetLatestBlock",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
